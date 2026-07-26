@@ -47,7 +47,7 @@ export default async function Home() {
               </a>
               <a
                 className="button button-secondary"
-                href="https://sketchfab.com/3DartSam"
+                href="https://sketchfab.com/samirdevuz"
                 target="_blank"
                 rel="noreferrer"
               >

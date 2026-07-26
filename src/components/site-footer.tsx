@@ -31,9 +31,11 @@ export function SiteFooter() {
         <div>
           <p className="footer-label">Elsewhere</p>
           <div className="footer-links">
-            <a href="https://sketchfab.com/3DartSam">Sketchfab</a>
+            <a href="https://sketchfab.com/samirdevuz">Sketchfab</a>
             <a href="https://github.com/samirdevuz">GitHub</a>
-            <a href="https://t.me/samirdevuz">Telegram</a>
+            <a href="https://discord.com/users/1215475872136699994">
+              Discord · samirdevuz
+            </a>
           </div>
         </div>
       </div>
