@@ -8,6 +8,18 @@ export const revalidate = 300;
 export default async function Home() {
   const models = await getCatalogModels();
   const animatedCount = models.filter((model) => model.animated).length;
+  const catalogModels = models.map(
+    ({ id, index, slug, title, category, animated, year, thumbnail }) => ({
+      id,
+      index,
+      slug,
+      title,
+      category,
+      animated,
+      year,
+      thumbnail,
+    }),
+  );
 
   return (
     <main>
@@ -99,7 +111,7 @@ export default async function Home() {
               project file becomes downloadable.
             </p>
           </div>
-          <ModelCatalog models={models} />
+          <ModelCatalog models={catalogModels} />
         </div>
       </section>
 
@@ -118,7 +130,7 @@ export default async function Home() {
             when redistribution is permitted and the original creator can be
             credited correctly.
           </p>
-          <Link className="text-link" href="/usage">
+          <Link className="text-link" href="/usage" prefetch={false}>
             Read the usage policy
             <ArrowIcon />
           </Link>

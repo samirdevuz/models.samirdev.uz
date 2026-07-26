@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExternalIcon } from "@/components/icons";
+import { LazySketchfabViewer } from "@/components/lazy-sketchfab-viewer";
 import { getCatalogModel } from "@/lib/catalog";
 import { getModel, models } from "@/lib/models";
 
@@ -49,24 +50,20 @@ export default async function ModelPage({ params }: ModelPageProps) {
     <main className="detail-page">
       <div className="site-container">
         <div className="detail-breadcrumb">
-          <Link href="/">Archive</Link>
+          <Link href="/" prefetch={false}>
+            Archive
+          </Link>
           <span>/</span>
           <span>M_{String(model.index).padStart(3, "0")}</span>
         </div>
 
         <div className="detail-layout">
-          <div className="viewer-shell">
-            <div className="viewer-bar">
-              <span>Interactive Sketchfab viewer</span>
-              <span>{model.animated ? "Animation available" : "Static model"}</span>
-            </div>
-            <iframe
-              title={`${model.title} interactive 3D preview`}
-              src={`https://sketchfab.com/models/${model.id}/embed?autostart=0&ui_theme=dark`}
-              allow="autoplay; fullscreen; xr-spatial-tracking"
-              allowFullScreen
-            />
-          </div>
+          <LazySketchfabViewer
+            animated={model.animated}
+            modelId={model.id}
+            thumbnail={model.thumbnail}
+            title={model.title}
+          />
 
           <aside className="detail-sidebar">
             <p className="detail-kicker">

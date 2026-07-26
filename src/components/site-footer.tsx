@@ -5,7 +5,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="site-container footer-inner">
         <div>
-          <Link className="brand" href="/">
+          <Link className="brand" href="/" prefetch={false}>
             <span className="brand-mark" aria-hidden="true" />
             <span>
               samirdev <span>/ models</span>
@@ -19,8 +19,12 @@ export function SiteFooter() {
         <div>
           <p className="footer-label">Navigate</p>
           <div className="footer-links">
-            <Link href="/#catalog">Model archive</Link>
-            <Link href="/usage">Usage policy</Link>
+            <Link href="/#catalog" prefetch={false}>
+              Model archive
+            </Link>
+            <Link href="/usage" prefetch={false}>
+              Usage policy
+            </Link>
             <a href="https://samirdev.uz">Main portfolio</a>
           </div>
         </div>

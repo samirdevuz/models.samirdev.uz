@@ -13,13 +13,17 @@
   --orange: #ff7848;
   --graphite: #24282d;
   --shadow: 0 24px 70px rgba(29, 38, 47, 0.11);
+  --font-geist-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
+    sans-serif;
+  --font-geist-mono: "SFMono-Regular", Consolas, "Liberation Mono",
+    monospace;
 }
 
 @theme inline {
   --color-background: var(--paper);
   --color-foreground: var(--ink);
-  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
 * {
@@ -615,6 +619,8 @@ button {
 }
 
 .model-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 480px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 13px;
@@ -913,11 +919,94 @@ button {
   text-transform: uppercase;
 }
 
-.viewer-shell iframe {
+.viewer-stage {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: #12161a;
+}
+
+.viewer-stage > img {
+  object-fit: cover;
+}
+
+.viewer-stage::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 13, 18, 0.08), rgba(8, 13, 18, 0.7)),
+    radial-gradient(circle at 50% 40%, transparent 10%, rgba(8, 13, 18, 0.35));
+  content: "";
+  pointer-events: none;
+}
+
+.viewer-stage:has(iframe)::after {
+  display: none;
+}
+
+.viewer-stage iframe {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  height: 100%;
   border: 0;
+}
+
+.viewer-launch {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-content: center;
+  gap: 8px;
+  border: 0;
+  padding: 24px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+}
+
+.viewer-launch-icon {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 7px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  background: rgba(8, 13, 18, 0.54);
+  backdrop-filter: blur(10px);
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.viewer-launch-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.viewer-launch strong {
+  font-size: 17px;
+}
+
+.viewer-launch > span:last-child {
+  color: rgba(255, 255, 255, 0.75);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.viewer-launch:hover .viewer-launch-icon,
+.viewer-launch:focus-visible .viewer-launch-icon {
+  background: var(--blue);
+  transform: translateY(-2px);
+}
+
+.viewer-launch:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: -6px;
 }
 
 .detail-sidebar {
@@ -1419,6 +1508,60 @@ button {
   }
 }
 
+.detail-loading-breadcrumb {
+  width: 180px;
+  height: 12px;
+  margin-bottom: 28px;
+  border-radius: 999px;
+  background: var(--line);
+}
+
+.detail-loading-viewer {
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(110deg, #dfe3e6 35%, #edf0f2 50%, #dfe3e6 65%);
+  background-size: 200% 100%;
+  animation: detail-loading 1.2s linear infinite;
+}
+
+.detail-loading-copy {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  padding-top: 10px;
+}
+
+.detail-loading-copy > * {
+  display: block;
+  margin: 0;
+  border-radius: 999px;
+  background: var(--line);
+}
+
+.detail-loading-copy span {
+  width: 38%;
+  height: 10px;
+}
+
+.detail-loading-copy strong {
+  width: 82%;
+  height: 58px;
+}
+
+.detail-loading-copy p {
+  width: 100%;
+  height: 13px;
+}
+
+.detail-loading-copy p:last-child {
+  width: 72%;
+}
+
+@keyframes detail-loading {
+  to {
+    background-position-x: -200%;
+  }
+}
+
 @media (max-width: 980px) {
   .header-meta {
     display: none;
@@ -1590,7 +1733,7 @@ button {
     padding-block: 42px 75px;
   }
 
-  .viewer-shell iframe {
+  .viewer-stage {
     aspect-ratio: 1 / 1;
   }
 

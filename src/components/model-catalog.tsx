@@ -15,7 +15,19 @@ const filters = [
   { id: "vehicles", label: "Vehicles" },
 ] as const;
 
-export function ModelCatalog({ models }: { models: ModelRecord[] }) {
+type CatalogModel = Pick<
+  ModelRecord,
+  | "animated"
+  | "category"
+  | "id"
+  | "index"
+  | "slug"
+  | "thumbnail"
+  | "title"
+  | "year"
+>;
+
+export function ModelCatalog({ models }: { models: CatalogModel[] }) {
   const [filter, setFilter] = useState<(typeof filters)[number]["id"]>("all");
   const [query, setQuery] = useState("");
 
@@ -67,7 +79,11 @@ export function ModelCatalog({ models }: { models: ModelRecord[] }) {
       <div className="model-grid" aria-live="polite">
         {visibleModels.map((model) => (
           <article className="model-card" key={model.id}>
-            <Link href={`/models/${model.slug}`} aria-label={`Open ${model.title}`}>
+            <Link
+              href={`/models/${model.slug}`}
+              aria-label={`Open ${model.title}`}
+              prefetch={false}
+            >
               <div className="model-thumb">
                 <Image
                   src={model.thumbnail}
@@ -87,7 +103,9 @@ export function ModelCatalog({ models }: { models: ModelRecord[] }) {
                 <span>{model.year}</span>
               </div>
               <h3>
-                <Link href={`/models/${model.slug}`}>{model.title}</Link>
+                <Link href={`/models/${model.slug}`} prefetch={false}>
+                  {model.title}
+                </Link>
               </h3>
               <div className="model-card-footer">
                 <div className="model-badges">
@@ -96,7 +114,11 @@ export function ModelCatalog({ models }: { models: ModelRecord[] }) {
                     <span className="mini-badge mini-badge-neutral">Animated</span>
                   ) : null}
                 </div>
-                <Link className="model-link" href={`/models/${model.slug}`}>
+                <Link
+                  className="model-link"
+                  href={`/models/${model.slug}`}
+                  prefetch={false}
+                >
                   Inspect
                   <ArrowIcon />
                 </Link>
