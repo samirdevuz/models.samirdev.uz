@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
+import "./portfolio-theme.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://models.samirdev.uz"),
