@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# models.samirdev.uz
 
-## Getting Started
+The source for [models.samirdev.uz](https://models.samirdev.uz), Samir’s Blockbench and voxel-model archive.
 
-First, run the development server:
+## What it includes
+
+- 15 Sketchfab-sourced model pages with search and category filters
+- visible source and attribution information for every model
+- a strict redistribution-rights gate before `.bbmodel` downloads become available
+- private Supabase Storage files delivered through short-lived signed URLs
+- a Supabase-authenticated admin area for provenance, licensing, and file management
+
+## Local development
+
+1. Install the pinned dependencies:
+
+   ```bash
+   npm ci
+   ```
+
+2. Copy `.env.example` to `.env.local` and provide the project-specific Supabase values.
+
+3. Start the app:
+
+   ```bash
+   npm run dev
+   ```
+
+## Verification
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run build
+npm audit --omit=dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Database
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The reproducible schema and policies live in `supabase/migrations/`. Seed data for the 15 catalog records is in `supabase/seed.sql`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Downloads remain locked until the original creator, source, license, and redistribution permission have been verified for the individual model.
